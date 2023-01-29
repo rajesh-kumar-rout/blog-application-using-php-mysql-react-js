@@ -1,0 +1,44 @@
+CREATE TABLE `blogUsers` (
+    `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(30) NOT NULL,
+    `email` VARCHAR(30) NOT NULL UNIQUE,
+    `password` VARCHAR(255) NOT NULL,
+    `profileImageUrl` VARCHAR(100),
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `blogTokens` (
+    `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    `userId` BIGINT(20) NOT NULL,
+    `token` VARCHAR(100) NOT NULL UNIQUE,
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`userId`) REFERENCES `blogUsers`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `blogCategories` (
+    `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(255),
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `blogBlogs` (
+    `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    `title` VARCHAR(255),
+    `content` TEXT,
+    `imageUrl` VARCHAR(100),
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `userId` BIGINT(20),
+    FOREIGN KEY (`userId`) REFERENCES `blogUsers`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    `categoryId` BIGINT(20),
+    FOREIGN KEY (`categoryId`) REFERENCES `blogCategories`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO `blogCategories` (name) VALUES 
+('Entertainment'),
+('Sports'),
+('Education'),
+('IT'),
+('Coding');
