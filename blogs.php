@@ -1,12 +1,12 @@
 <?php 
 
-require("include/authenticate.php");
+require("include/db.php");
 
 $stmt = $db->prepare("
 	SELECT
         blogBlogs.id,
         blogBlogs.title,
-        SUBSTR(blogBlogs.content, 1, 200),
+        SUBSTR(blogBlogs.content, 1, 200) AS content,
         blogBlogs.imageUrl,
         blogBlogs.createdAt,
         blogBlogs.updatedAt,

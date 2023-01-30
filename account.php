@@ -9,6 +9,7 @@ $stmt = $db->prepare("
         blogUsers.id,
         blogUsers.name,
         blogUsers.email,
+        blogUsers.profileImageUrl,
         blogUsers.createdAt,
         blogUsers.updatedAt
     FROM

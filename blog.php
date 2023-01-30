@@ -1,6 +1,6 @@
 <?php 
 
-require("include/authenticate.php");
+require("include/db.php");
 
 $blogId = $_GET["blogId"] ?? -1;
 
@@ -28,4 +28,27 @@ $stmt->execute();
 
 $blog = $stmt->fetch();
 
-echo json_encode($blog);
+$stmt = $db->prepare("
+	SELECT
+        id,
+        title,
+        imageUrl
+    FROM
+        blogBlogs
+    WHERE categoryId = :categoryId AND id != :blogId
+    ORDER BY id DESC
+    LIMIT 10
+");
+
+$stmt->bindParam(":categoryId", $blog["categoryId"]);
+
+$stmt->bindParam(":blogId", $blogId);
+
+$stmt->execute();
+
+$relatedBlogs = $stmt->fetchAll();
+
+echo json_encode([
+    "blog" => $blog,
+    "relatedBlogs" => $relatedBlogs
+]);

@@ -85,7 +85,7 @@ $user = $stmt->fetch();
 
 if(count($profileImage) > 0) 
 {
-    $destination = "upload/" . bin2hex(random_bytes(12)) . "." . pathinfo($profileImage["name"], PATHINFO_EXTENSION);
+    $destination = "uploads/" . bin2hex(random_bytes(12)) . "." . pathinfo($profileImage["name"], PATHINFO_EXTENSION);
 
     move_uploaded_file($profileImage["tmp_name"], $destination);
 

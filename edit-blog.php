@@ -57,11 +57,13 @@ if (count($image) > 0)
 $stmt = $db->prepare("
 	SELECT *
     FROM blogBlogs
-    WHERE id = :blogId
+    WHERE id = :blogId AND userId = :currentUserId
     LIMIT 1
 ");
 
 $stmt->bindParam(":blogId", $blogId);
+
+$stmt->bindParam(":currentUserId", $currentUserId);
 
 $stmt->execute();
 
@@ -101,7 +103,7 @@ $stmt = $db->prepare("
         content = :content,
         imageUrl = :imageUrl,
         categoryId = :categoryId
-    WHERE userId = :currentUserId
+    WHERE id = :blogId
 ");
 
 $stmt->bindParam(":title", $title);
@@ -112,6 +114,6 @@ $stmt->bindParam(":imageUrl", $blog["imageUrl"]);
 
 $stmt->bindParam(":categoryId", $categoryId);
 
-$stmt->bindParam(":currentUserId", $currentUserId);
+$stmt->bindParam(":blogId", $blogId);
 
 $stmt->execute();
