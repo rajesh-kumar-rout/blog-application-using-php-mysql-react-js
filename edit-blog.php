@@ -19,7 +19,7 @@ if(strlen($title) == 0 || strlen($title) > 255)
     $errors["title"] = "Title must be within 1-255 characters";
 }
 
-if(strlen($content) == 0 || strlen($content) > 255) 
+if(strlen($content) == 0 || strlen($content) > 5000) 
 {
     $errors["content"] = "Content must be within 5000 characters";
 }
